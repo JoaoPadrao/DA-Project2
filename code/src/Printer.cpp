@@ -15,5 +15,5 @@ void Printer::printContent() {
             m++;
         }
     }
-    std::cout << "Edges count: " << m;
+    std::cout << "Edges count: " << m << std::endl;
 }

@@ -34,14 +34,16 @@ Printer Menu::readSelectedFile() {
                 std::cout << std::endl;
 
                 if(graphChosen == "1")  {
-                    return {"../code/data/toys/shipping.csv"};
+                    return {"../code/data/toys_graph/shipping.csv"};
                 } else if(graphChosen == "2")  {
-                    return {"../code/data/toys/stadiums.csv"};
+                    return {"../code/data/toys_graph/stadiums.csv"};
                 } else if(graphChosen == "3")  {
                     toBeImplemented();
                 }
+                std::cout << std::endl;
             }
         }
+        std::cout << std::endl;
     }
 }
 
