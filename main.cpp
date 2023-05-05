@@ -1,11 +1,14 @@
-#include <iostream>
-#include "code/headers/Graph.h"
-#include "code/headers/Reader.h"
+#include "code/headers/Menu.h"
+
 
 int main() {
-    /*
-    //This code is to read the toys_graph -> "shipping.csv"
-    std::string shipping = "../code/data/toys_graph/shipping.csv";
+    Menu menu;
+    menu.run();
+}
+
+/*
+    //This code is to read the toys -> "shipping.csv"
+    std::string shipping = "../code/data/toys/shipping.csv";
 
     std::ifstream shippingIn(shipping);
     Graph graph_shipping;
@@ -18,12 +21,12 @@ int main() {
         }
     }
     std::cout << "Edges count: " << i;
-    */
 
 
-    /*
-    //This code is to read the toys_graph -> "stadiums.csv"
-    std::string stadiums = "../code/data/toys_graph/stadiums.csv";
+
+
+    //This code is to read the toys -> "stadiums.csv"
+    std::string stadiums = "../code/data/toys/stadiums.csv";
 
     std::ifstream stadiumsIn(stadiums);
     Graph graph_stadiums;
@@ -36,11 +39,11 @@ int main() {
         }
     }
     std::cout << "Edges count: " << m;
-    */
 
 
-    //This code is to read the toys_graph -> "tourism.csv"
-    std::string tourism = "../code/data/toys_graph/tourism.csv";
+
+    //This code is to read the toys -> "tourism.csv"
+    std::string tourism = "../code/data/toys/tourism.csv";
 
     std::ifstream stadiumsIn(tourism);
     Graph graph_tourism;
@@ -56,3 +59,4 @@ int main() {
     }
     std::cout << "Edges count: " << m;
 }
+*/
