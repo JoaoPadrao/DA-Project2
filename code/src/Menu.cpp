@@ -21,7 +21,24 @@ Printer Menu::readSelectedFile() {
         std::cout << std::endl;
 
         if(option == "1"){
-            toBeImplemented();
+            std::cout << "[1] Real graph 1" << std::endl;
+            std::cout << "[2] Real graph 2" << std::endl;
+            std::cout << "[3] Real graph 3" << std::endl;
+
+            while(true) {
+                std::cout << "Press one of the options: ";
+                std::getline(std::cin,graphChosen);
+                std::cout << std::endl;
+
+                if(graphChosen == "1")  {
+                    return {"../code/data/real_graphs/graph1/nodes.csv","../code/data/real_graphs/graph1/edges.csv"};
+                } else if(graphChosen == "2")  {
+                    return {"../code/data/real_graphs/graph2/nodes.csv","../code/data/real_graphs/graph2/edges.csv"};
+                } else if(graphChosen == "3")  {
+                    return {"../code/data/real_graphs/graph3/nodes.csv","../code/data/real_graphs/graph3/edges.csv"};
+                }
+                std::cout << std::endl;
+            }
         }
         else if(option == "2"){
             std::cout << "[1] Shipping graph" << std::endl;
@@ -34,11 +51,11 @@ Printer Menu::readSelectedFile() {
                 std::cout << std::endl;
 
                 if(graphChosen == "1")  {
-                    return {"../code/data/toys_graph/shipping.csv"};
+                    return {"../code/data/toys_graph/shipping.csv",1};
                 } else if(graphChosen == "2")  {
-                    return {"../code/data/toys_graph/stadiums.csv"};
+                    return {"../code/data/toys_graph/stadiums.csv",1};
                 } else if(graphChosen == "3")  {
-                    toBeImplemented();
+                    return {"../code/data/toys_graph/tourism.csv",2};
                 }
                 std::cout << std::endl;
             }

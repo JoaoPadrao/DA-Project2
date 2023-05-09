@@ -4,12 +4,18 @@
 #include <vector>
 #include <climits>
 #include "Place.h"
+#include "Node.h"
 
 class Edge;
 
 class Vertex {
 public:
     Vertex(int id);
+    Vertex(Place * place);
+    Vertex(Node* node);
+
+    Place* getPlace();
+    Node* getNode();
 
     int getId() const;
     std::vector<Edge *> getAdj() const;
@@ -33,6 +39,8 @@ public:
 protected:
     int id;                // identifier
     std::vector<Edge *> adj;  // outgoing edges
+    Place* place;
+    Node* node;
 
     // auxiliary fields
     bool visited = false; // used by DFS, BFS, Prim ...
@@ -54,7 +62,6 @@ protected:
 class Edge {
 public:
     Edge(Vertex *orig, Vertex *dest, double dist);
-
     Vertex * getDest() const;
     double getDistance() const;
     bool isSelected() const;

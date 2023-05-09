@@ -2,7 +2,6 @@
 #define FEUP_DA_PROJ2_GRAPH_H
 
 #include "VertexEdge.h"
-#include "VertexPlaceEdge.h"
 #include "../headers/Place.h"
 
 class Graph {
@@ -17,8 +16,14 @@ public:
      */
     bool addVertex(const int &id);
 
+
     bool addPlace(Place *place);
-    VertexPlace *findPlace(int id) const;
+
+    Vertex *findPlace(const int &id) const;
+
+    bool addNode(Node *node);
+
+    Vertex * findNode(const int &id) const;
 
     /*
      * Adds an edge to a graph (this), given the contents of the source and
@@ -28,14 +33,13 @@ public:
     bool addEdge(const int &sourc, const int &dest, double w);
     bool addBidirectionalEdge(const int &sourc, const int &dest, double w);
     bool addBidirectionalEdgePlace(const int &sourc, const int &dest, double w);
+    bool addBidirectionalEdgeNode(const int &sourc, const int &dest, double w);
 
     int getNumVertex() const;
     std::vector<Vertex *> getVertexSet() const;
-    std::vector<VertexPlace *> getVertexPlaceSet() const;
 
 protected:
     std::vector<Vertex *> vertexSet;    // vertex set
-    std::vector<VertexPlace *> vertexPlaceSet;    // vertex set
 
 
     double ** distMatrix = nullptr;   // dist matrix for Floyd-Warshall

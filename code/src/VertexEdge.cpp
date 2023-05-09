@@ -5,11 +5,22 @@
 /************************* Vertex  **************************/
 
 Vertex::Vertex(int id): id(id) {}
+Vertex::Vertex(Place * place): place(place) {}
+Vertex::Vertex(Node * node): node(node) {}
 
 /*
  * Auxiliary function to add an outgoing edge to a vertex (this),
  * with a given destination vertex (d) and edge weight (w).
  */
+
+Place* Vertex::getPlace(){
+    return this->place;
+}
+
+Node* Vertex::getNode(){
+    return this->node;
+}
+
 Edge * Vertex::addEdge(Vertex *d, double w) {
     auto newEdge = new Edge(this, d, w);
     adj.push_back(newEdge);

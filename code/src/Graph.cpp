@@ -1,5 +1,4 @@
 #include "../headers/Graph.h"
-#include "../headers/VertexPlaceEdge.h"
 
 int Graph::getNumVertex() const {
     return vertexSet.size();
@@ -8,12 +7,13 @@ int Graph::getNumVertex() const {
 std::vector<Vertex *> Graph::getVertexSet() const {
     return vertexSet;
 }
-std::vector<VertexPlace *> Graph::getVertexPlaceSet() const {
-    return vertexPlaceSet;
-}
 
-/*
- * Auxiliary function to find a vertex with a given content.
+
+/**
+ * This method finds a vertex in the graph with a certain id \n
+ * Complexity: O(V) V-> number of nodes;
+ * @param id id to be searched
+ * @return pointer to the vertex / null pointer if it doesn't exist
  */
 Vertex * Graph::findVertex(const int &id) const {
     for (auto v : vertexSet)
@@ -31,10 +31,22 @@ int Graph::findVertexIdx(const int &id) const {
             return i;
     return -1;
 }
-/*
- *  Adds a vertex with a given content or info (in) to a graph (this).
- *  Returns true if successful, and false if a vertex with that content already exists.
- */
+
+Vertex *Graph::findPlace(const int &id) const {
+    for (auto v : vertexSet)
+        if (v->getPlace()->getID() == id)
+            return v;
+    return nullptr;
+}
+
+Vertex *Graph::findNode(const int &id) const {
+    for (auto v : vertexSet)
+        if (v->getNode()->getID() == id)
+            return v;
+    return nullptr;
+}
+
+
 bool Graph::addVertex(const int &id) {
     if (findVertex(id) != nullptr)
         return false;
@@ -45,15 +57,15 @@ bool Graph::addVertex(const int &id) {
 bool Graph::addPlace(Place *place) {
     if (findPlace(place->getID()) != nullptr)
         return false;
-    vertexPlaceSet.push_back(new VertexPlace(place));
+    vertexSet.push_back(new Vertex(place));
     return true;
 }
 
-VertexPlace *Graph::findPlace(int id) const {
-    for (auto v : vertexPlaceSet)
-        if (v->getPlace()->getID() == id)
-            return v;
-    return nullptr;
+bool Graph::addNode(Node *node) {
+    if (findNode(node->getID()) != nullptr)
+        return false;
+    vertexSet.push_back(new Vertex(node));
+    return true;
 }
 
 /*
@@ -87,8 +99,20 @@ bool Graph::addBidirectionalEdgePlace(const int &sourc, const int &dest, double 
     auto v2 = findPlace(dest);
     if (v1 == nullptr || v2 == nullptr)
         return false;
-    auto e1 = v1->addEdgePlace(v2, w);
-    auto e2 = v2->addEdgePlace(v1, w);
+    auto e1 = v1->addEdge(v2, w);
+    auto e2 = v2->addEdge(v1, w);
+    e1->setReverse(e2);
+    e2->setReverse(e1);
+    return true;
+}
+
+bool Graph::addBidirectionalEdgeNode(const int &sourc, const int &dest, double w) {
+    auto v1 = findNode(sourc);
+    auto v2 = findNode(dest);
+    if (v1 == nullptr || v2 == nullptr)
+        return false;
+    auto e1 = v1->addEdge(v2, w);
+    auto e2 = v2->addEdge(v1, w);
     e1->setReverse(e2);
     e2->setReverse(e1);
     return true;
