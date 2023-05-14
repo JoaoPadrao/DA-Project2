@@ -1,6 +1,5 @@
 #include <fstream>
 #include "../headers/Menu.h"
-#include "../headers/Reader.h"
 
 Menu::Menu() {
     printer = readSelectedFile();
@@ -69,7 +68,10 @@ void Menu::run() {
         std::string option;
         std::cout << "MAIN MENU" << std::endl;
         std::cout << "[1] Print graph contents" << std::endl;
-        std::cout << "[2] Exit" << std::endl;
+        std::cout << "[2] Cost with the Backtracking Algorithm" << std::endl;
+        std::cout << "[3] Cost with the Triangular Approximation Heuristic" << std::endl;
+        std::cout << "[4] Cost with Other Heuristics" << std::endl;
+        std::cout << "[5] Exit" << std::endl;
         std::cout << "Press one of the options: ";
         std::getline(std::cin,option);
         std::cout << std::endl;
@@ -77,6 +79,12 @@ void Menu::run() {
         if(option == "1") {
             printer.printContent();
         }else if (option == "2") {
+            printer.printCostAndPath();
+        }else if (option == "3") {
+            toBeImplemented();
+        }else if (option == "4") {
+            toBeImplemented();
+        }else if (option == "5") {
             break;
         }else{
             std::cout << "FATAL ERROR (core dumped)" << std::endl;

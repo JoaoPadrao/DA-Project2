@@ -12,6 +12,7 @@ public:
     Printer(const std::string& filePath);
 
     void printContent();
+    void printCostAndPath();
 private:
     Graph graph;
 };

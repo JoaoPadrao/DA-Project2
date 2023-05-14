@@ -14,6 +14,14 @@ public:
      *  Returns true if successful, and false if a vertex with that content already exists.
      */
     bool addVertex(const int &id);
+
+    double dist(int source, int dest);
+
+    void backtracking(std::vector<Vertex*> &path, std::vector<Vertex*> currPath, double currCost, double &bestCost, int
+    index);
+
+    double tspBT(std::vector<Vertex*> &path);
+
     /*
      * Adds an edge to a graph (this), given the contents of the source and
      * destination vertices and the edge weight (w).
