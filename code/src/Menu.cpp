@@ -12,6 +12,7 @@ void toBeImplemented() {
 Printer Menu::readSelectedFile() {
     std::cout << "[1] Read real graph" << std::endl;
     std::cout << "[2] Read toy graph" << std::endl;
+    std::cout << "[3] Read medium graph" << std::endl;
     std::string option, graphChosen;
 
     while(true) {
@@ -55,6 +56,53 @@ Printer Menu::readSelectedFile() {
                     return {"../code/data/toys_graph/stadiums.csv"};
                 } else if(graphChosen == "3")  {
                     return {"../code/data/toys_graph/tourism.csv"};
+                }
+                std::cout << std::endl;
+            }
+        }
+        else if(option == "3"){
+            std::cout << "[1] Graph with 25 nodes" << std::endl;
+            std::cout << "[2] Graph with 50 nodes" << std::endl;
+            std::cout << "[3] Graph with 75 nodes" << std::endl;
+            std::cout << "[4] Graph with 100 nodes" << std::endl;
+            std::cout << "[5] Graph with 200 nodes" << std::endl;
+            std::cout << "[6] Graph with 300 nodes" << std::endl;
+            std::cout << "[7] Graph with 400 nodes" << std::endl;
+            std::cout << "[8] Graph with 500 nodes" << std::endl;
+            std::cout << "[9] Graph with 600 nodes" << std::endl;
+            std::cout << "[10] Graph with 700 nodes" << std::endl;
+            std::cout << "[11] Graph with 800 nodes" << std::endl;
+            std::cout << "[12] Graph with 900 nodes" << std::endl;
+
+            while(true) {
+                std::cout << "Press one of the options: ";
+                std::getline(std::cin,graphChosen);
+                std::cout << std::endl;
+
+                if (graphChosen == "1") {
+                    return {"../code/data/medium_graphs/edges_25.csv"};
+                } else if (graphChosen == "2") {
+                    return {"../code/data/medium_graphs/edges_50.csv"};
+                } else if (graphChosen == "3") {
+                    return {"../code/data/medium_graphs/edges_75.csv"};
+                } else if (graphChosen == "4") {
+                    return {"../code/data/medium_graphs/edges_100.csv"};
+                } else if (graphChosen == "5") {
+                    return {"../code/data/medium_graphs/edges_200.csv"};
+                } else if (graphChosen == "6") {
+                    return {"../code/data/medium_graphs/edges_300.csv"};
+                } else if (graphChosen == "7") {
+                    return {"../code/data/medium_graphs/edges_400.csv"};
+                } else if (graphChosen == "8") {
+                    return {"../code/data/medium_graphs/edges_500.csv"};
+                } else if (graphChosen == "9") {
+                    return {"../code/data/medium_graphs/edges_600.csv"};
+                } else if (graphChosen == "10") {
+                    return {"../code/data/medium_graphs/edges_700.csv"};
+                } else if (graphChosen == "11") {
+                    return {"../code/data/medium_graphs/edges_800.csv"};
+                } else if (graphChosen == "12") {
+                    return {"../code/data/medium_graphs/edges_900.csv"};
                 }
                 std::cout << std::endl;
             }

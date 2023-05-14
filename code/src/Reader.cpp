@@ -9,9 +9,14 @@ void Reader::readEdges(std::ifstream &in, Graph& graph) {
     std::string firstLine, aux;
     int srcID, destID;
     double dist;
+    bool isFirst = true;
 
-    getline(in, firstLine); // to ignore the 1st line
     for (std::string line; getline(in, line);) {
+        if (isFirst) {
+            isFirst = false;
+            if (line[0] != '0') continue;
+        }
+
         std::stringstream ss(line);
         getline(ss, aux, ',');
         srcID = std::stoi(aux);
