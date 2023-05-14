@@ -16,6 +16,12 @@ public:
      */
     bool addVertex(const int &id);
 
+    double dist(int source, int dest);
+
+    void backtracking(std::vector<Vertex*> &path, std::vector<Vertex*> currPath, double currCost, double &bestCost, int
+    index);
+
+    double tspBT(std::vector<Vertex*> &path);
 
     bool addPlace(Place *place);
 

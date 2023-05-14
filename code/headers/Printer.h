@@ -13,6 +13,7 @@ public:
     Printer(const std::string& nodePath,const std::string& edgesPath);
 
     void printContent();
+    void printCostAndPath();
 private:
     Graph graph;
 };

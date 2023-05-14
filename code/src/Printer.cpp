@@ -48,3 +48,15 @@ void Printer::printContent() {
     }
     std::cout << "Edges count: " << m << " || VERTICES: " << graph.getVertexSet().size()<<std::endl;
 }
+
+void Printer::printCostAndPath() {
+    std::vector<Vertex*> path;
+    double cost = graph.tspBT(path);
+
+    std::cout << "Cost: " << cost << std::endl;
+    std::cout << "Path:";
+    for (auto v : path) {
+        std::cout << " " << v->getId();
+    }
+    std::cout << std::endl;
+}
