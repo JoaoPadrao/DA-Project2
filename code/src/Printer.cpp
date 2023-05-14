@@ -1,4 +1,5 @@
 #include "../headers/Printer.h"
+#include <chrono>
 
 Printer::Printer() = default;
 
@@ -51,7 +52,12 @@ void Printer::printContent() {
 
 void Printer::printCostAndPath() {
     std::vector<Vertex*> path;
+
+    auto start = std::chrono::high_resolution_clock::now();
+
     double cost = graph.tspBT(path);
+
+    auto end = std::chrono::high_resolution_clock::now();
 
     std::cout << "Cost: " << cost << std::endl;
     std::cout << "Path:";
@@ -59,4 +65,6 @@ void Printer::printCostAndPath() {
         std::cout << " " << v->getId();
     }
     std::cout << std::endl;
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+    std::cout << "Execution time: " << duration << " milliseconds" << std::endl;
 }
