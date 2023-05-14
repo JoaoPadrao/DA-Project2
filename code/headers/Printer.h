@@ -9,8 +9,7 @@
 class Printer {
 public:
     Printer();
-    Printer(const std::string& filePath,int id);
-    Printer(const std::string& nodePath,const std::string& edgesPath);
+    Printer(const std::string& filePath);
 
     void printContent();
 private:

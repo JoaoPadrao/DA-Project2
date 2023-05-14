@@ -32,39 +32,10 @@ int Graph::findVertexIdx(const int &id) const {
     return -1;
 }
 
-Vertex *Graph::findPlace(const int &id) const {
-    for (auto v : vertexSet)
-        if (v->getPlace()->getID() == id)
-            return v;
-    return nullptr;
-}
-
-Vertex *Graph::findNode(const int &id) const {
-    for (auto v : vertexSet)
-        if (v->getNode()->getID() == id)
-            return v;
-    return nullptr;
-}
-
-
 bool Graph::addVertex(const int &id) {
     if (findVertex(id) != nullptr)
         return false;
     vertexSet.push_back(new Vertex(id));
-    return true;
-}
-
-bool Graph::addPlace(Place *place) {
-    if (findPlace(place->getID()) != nullptr)
-        return false;
-    vertexSet.push_back(new Vertex(place));
-    return true;
-}
-
-bool Graph::addNode(Node *node) {
-    if (findNode(node->getID()) != nullptr)
-        return false;
-    vertexSet.push_back(new Vertex(node));
     return true;
 }
 
@@ -85,30 +56,6 @@ bool Graph::addEdge(const int &sourc, const int &dest, double w) {
 bool Graph::addBidirectionalEdge(const int &sourc, const int &dest, double w) {
     auto v1 = findVertex(sourc);
     auto v2 = findVertex(dest);
-    if (v1 == nullptr || v2 == nullptr)
-        return false;
-    auto e1 = v1->addEdge(v2, w);
-    auto e2 = v2->addEdge(v1, w);
-    e1->setReverse(e2);
-    e2->setReverse(e1);
-    return true;
-}
-
-bool Graph::addBidirectionalEdgePlace(const int &sourc, const int &dest, double w) {
-    auto v1 = findPlace(sourc);
-    auto v2 = findPlace(dest);
-    if (v1 == nullptr || v2 == nullptr)
-        return false;
-    auto e1 = v1->addEdge(v2, w);
-    auto e2 = v2->addEdge(v1, w);
-    e1->setReverse(e2);
-    e2->setReverse(e1);
-    return true;
-}
-
-bool Graph::addBidirectionalEdgeNode(const int &sourc, const int &dest, double w) {
-    auto v1 = findNode(sourc);
-    auto v2 = findNode(dest);
     if (v1 == nullptr || v2 == nullptr)
         return false;
     auto e1 = v1->addEdge(v2, w);

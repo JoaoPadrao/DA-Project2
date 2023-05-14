@@ -2,7 +2,6 @@
 #define FEUP_DA_PROJ2_GRAPH_H
 
 #include "VertexEdge.h"
-#include "../headers/Place.h"
 
 class Graph {
 public:
@@ -15,16 +14,6 @@ public:
      *  Returns true if successful, and false if a vertex with that content already exists.
      */
     bool addVertex(const int &id);
-
-
-    bool addPlace(Place *place);
-
-    Vertex *findPlace(const int &id) const;
-
-    bool addNode(Node *node);
-
-    Vertex * findNode(const int &id) const;
-
     /*
      * Adds an edge to a graph (this), given the contents of the source and
      * destination vertices and the edge weight (w).
@@ -32,8 +21,6 @@ public:
      */
     bool addEdge(const int &sourc, const int &dest, double w);
     bool addBidirectionalEdge(const int &sourc, const int &dest, double w);
-    bool addBidirectionalEdgePlace(const int &sourc, const int &dest, double w);
-    bool addBidirectionalEdgeNode(const int &sourc, const int &dest, double w);
 
     int getNumVertex() const;
     std::vector<Vertex *> getVertexSet() const;
