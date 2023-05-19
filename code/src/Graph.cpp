@@ -70,6 +70,16 @@ double Graph::tspBT(std::vector<Vertex*> &path) {
     return bestCost;
 }
 
+/**
+* Finds the shortest path that visits all vertices in the graph using the Triangular Approximation Heuristic algorithm\n
+* Complexity: O(n^2) n-> number of vertices
+* @param path reference to a vector of vertices that represents the shortest path found so far
+* @return double that represents the cost of the best path
+*/
+std::pair<std::vector<Vertex*>, double> Graph::tsp_TRIANG_approx(Graph& graph) {
+
+};
+
 int Graph::getNumVertex() const {
     return vertexSet.size();
 }
@@ -132,4 +142,68 @@ bool Graph::addBidirectionalEdge(const int &sourc, const int &dest, double w) {
     e1->setReverse(e2);
     e2->setReverse(e1);
     return true;
+}
+
+std::vector<Vertex *> Graph::mst() {
+    MutablePriorityQueue<Vertex> q;
+    std::vector<Vertex *> res;
+    for (auto v : vertexSet) {
+        if (v == *vertexSet.begin()) {
+            v->setDist(0);
+            v->setPath(nullptr);
+        } else {
+            v->setDist(INT_MAX);
+        }
+        q.insert(v);
+    }
+    while (!q.empty()) {
+        auto u = q.extractMin();
+        res.push_back(u);
+        u->setVisited(true);
+        for (auto u2 : vertexSet) {
+            double dist = Graph::dist(u, u2);
+            if (dist == -1) {
+                dist = haversine(u, u2);
+            }
+        }
+        /* old
+            for (auto w : u->getAdj()) {
+                auto v = w->getDest();
+                if (!v->isVisited() && w->getDistance() < v->getDist()) {
+                    v->setPath(w);
+                    v->setDist(w->getDistance());
+                    q.decreaseKey(v);
+                }
+            }*/
+    }
+    return res;
+}
+
+double Graph::dist(Vertex *source, Vertex *dest) {
+    for (auto v : vertexSet) {
+        if (v->getId() == source->getId()) {
+            for (auto e : v->getAdj()) {
+                if (e->getDest()->getId() == dest->getId()) {
+                    return e->getDistance();
+                }
+            }
+        }
+    }
+    return -1;
+}
+
+double
+
+double Graph::Haversine(lat1, lon1, lat2, lon2) {
+
+    rad_lat1, rad_lon1, rad_lat2, rad_lon2 = convert_to_radians(lat1), convert_to_radians(lon1),
+            convert_to_radians(lat2), convert_to_radians(lon2)
+
+    delta_lat = rad_lat2 - rad_lat1
+    delta_lon = rad_lon2 - rad_lon1
+    aux = sin ^ 2(delta_lat / 2) + cos(rad_lat1) * cos(rad_lat2) * sin ^ 2(delta_lon / 2)
+    c = 2.0 * atan2(sqrt(a), sqrt(1.0 - a))
+    earthradius = 6371000(in
+    meters)
+    return earthradius * c
 }

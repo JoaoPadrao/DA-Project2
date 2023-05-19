@@ -130,7 +130,7 @@ void Menu::run() {
         }else if (option == "2") {
             printer.printCostAndPath();
         }else if (option == "3") {
-            toBeImplemented();
+            printer.printCostAndPathTAH();
         }else if (option == "4") {
             toBeImplemented();
         }else if (option == "5") {

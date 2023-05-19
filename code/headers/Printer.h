@@ -13,6 +13,7 @@ public:
 
     void printContent();
     void printCostAndPath();
+    void printCostAndPathTAH();
 private:
     Graph graph;
 };

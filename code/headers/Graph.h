@@ -17,10 +17,14 @@ public:
 
     double dist(int source, int dest);
 
+    double dist(Vertex* source, Vertex* dest);
+
     void backtracking(std::vector<Vertex*> &path, std::vector<Vertex*> currPath, double currCost, double &bestCost, int
     index);
 
     double tspBT(std::vector<Vertex*> &path);
+
+    std::pair<std::vector<Vertex*>, double> tsp_TRIANG_approx(Graph& graph);
 
     /*
      * Adds an edge to a graph (this), given the contents of the source and
@@ -29,6 +33,8 @@ public:
      */
     bool addEdge(const int &sourc, const int &dest, double w);
     bool addBidirectionalEdge(const int &sourc, const int &dest, double w);
+
+    std::vector<Vertex *> mst();
 
     int getNumVertex() const;
     std::vector<Vertex *> getVertexSet() const;

@@ -4,6 +4,8 @@
 #include <vector>
 #include <climits>
 
+#include "MutablePriorityQueue.h"
+
 class Edge;
 
 class Vertex {
@@ -28,8 +30,11 @@ public:
     Edge * addEdge(Vertex *dest, double w);
     bool removeEdge(int destID);
     void removeOutgoingEdges();
+    bool operator<(Vertex & vertex) const;
 
 protected:
+    friend class MutablePriorityQueue<Vertex>;
+
     int id;                // identifier
     std::vector<Edge *> adj;  // outgoing edges
 
@@ -39,7 +44,6 @@ protected:
     unsigned int indegree; // used by topsort
     double dist = 0;
     Edge *path = nullptr;
-    bool operator<(Vertex & vertex) const;
 
     std::vector<Edge *> incoming; // incoming edges
 

@@ -37,3 +37,23 @@ void Printer::printCostAndPath() {
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
     std::cout << "Execution time: " << duration << " milliseconds" << std::endl;
 }
+
+void Printer::printCostAndPathTAH() {
+    std::vector<Vertex*> path;
+
+    auto start = std::chrono::high_resolution_clock::now();
+
+    double total_cost;
+    auto pair = graph.tsp_TRIANG_approx(graph);
+
+    auto end = std::chrono::high_resolution_clock::now();
+
+    std::cout << "Cost: " << pair.second << std::endl;
+    std::cout << "Path:";
+    for (auto v : pair.first) {
+        std::cout << " " << v->getId();
+    }
+    std::cout << std::endl;
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+    std::cout << "Execution time: " << duration << " milliseconds" << std::endl;
+}
