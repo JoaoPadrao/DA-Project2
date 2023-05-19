@@ -119,7 +119,8 @@ void Menu::run() {
         std::cout << "[2] Cost with the Backtracking Algorithm" << std::endl;
         std::cout << "[3] Cost with the Triangular Approximation Heuristic" << std::endl;
         std::cout << "[4] Cost with Other Heuristics" << std::endl;
-        std::cout << "[5] Exit" << std::endl;
+        std::cout << "[5] Choose a different graph" << std::endl;
+        std::cout << "[6] Exit" << std::endl;
         std::cout << "Press one of the options: ";
         std::getline(std::cin,option);
         std::cout << std::endl;
@@ -133,6 +134,8 @@ void Menu::run() {
         }else if (option == "4") {
             toBeImplemented();
         }else if (option == "5") {
+            printer = readSelectedFile();
+        }else if (option == "6") {
             break;
         }else{
             std::cout << "FATAL ERROR (core dumped)" << std::endl;
