@@ -9,7 +9,7 @@
 class Printer {
 public:
     Printer();
-    Printer(const std::string& filePath);
+    Printer(const std::string& edgesPath);
 
     void printContent();
     void printCostAndPath();

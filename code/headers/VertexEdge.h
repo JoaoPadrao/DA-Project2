@@ -8,9 +8,15 @@
 
 class Edge;
 
+struct Coords {
+    double longitude;
+    double latitude;
+};
+
 class Vertex {
 public:
     Vertex(int id);
+    ~Vertex();
 
     int getId() const;
     std::vector<Edge *> getAdj() const;
@@ -20,6 +26,7 @@ public:
     double getDist() const;
     Edge *getPath() const;
     std::vector<Edge *> getIncoming() const;
+    Coords* getCoords() const;
 
     void setId(int info);
     void setVisited(bool visited);
@@ -27,6 +34,7 @@ public:
     void setIndegree(unsigned int indegree);
     void setDist(double dist);
     void setPath(Edge *path);
+    void setCoords(double longitude, double latitude);
     Edge * addEdge(Vertex *dest, double w);
     bool removeEdge(int destID);
     void removeOutgoingEdges();
@@ -44,6 +52,7 @@ protected:
     unsigned int indegree; // used by topsort
     double dist = 0;
     Edge *path = nullptr;
+    Coords *coords = nullptr;
 
     std::vector<Edge *> incoming; // incoming edges
 

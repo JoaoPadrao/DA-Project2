@@ -1,6 +1,7 @@
 #include <iostream>
 #include "../headers/Graph.h"
 #include <algorithm>
+#include <valarray>
 
 /**
  * Return the distance of the edge connecting the source vertex with the destination vertex or -1 if there is no edge\n
@@ -72,13 +73,20 @@ double Graph::tspBT(std::vector<Vertex*> &path) {
 
 /**
 * Finds the shortest path that visits all vertices in the graph using the Triangular Approximation Heuristic algorithm\n
-* Complexity: O(n^2) n-> number of vertices
+* Complexity: O(n^3) n-> number of vertices
 * @param path reference to a vector of vertices that represents the shortest path found so far
 * @return double that represents the cost of the best path
 */
-std::pair<std::vector<Vertex*>, double> Graph::tsp_TRIANG_approx(Graph& graph) {
-
-};
+double Graph::tsp_TRIANG_approx(std::vector<Vertex*> &path) {
+    double cost = 0.0;
+    Vertex* vertex_0 = Graph::findVertex(0);
+    int last_index = path.size();
+    for(int i = 0; i < path.size()-1;i++){
+        cost += Graph::calculateDistance(path[i],path[i+1]);
+    }
+    cost += Graph::calculateDistance(path[last_index-1],vertex_0);
+    return cost;
+}
 
 int Graph::getNumVertex() const {
     return vertexSet.size();
@@ -147,7 +155,8 @@ bool Graph::addBidirectionalEdge(const int &sourc, const int &dest, double w) {
 std::vector<Vertex *> Graph::mst() {
     MutablePriorityQueue<Vertex> q;
     std::vector<Vertex *> res;
-    for (auto v : vertexSet) {
+    for (auto v: vertexSet) {
+        v->setVisited(false);
         if (v == *vertexSet.begin()) {
             v->setDist(0);
             v->setPath(nullptr);
@@ -160,25 +169,52 @@ std::vector<Vertex *> Graph::mst() {
         auto u = q.extractMin();
         res.push_back(u);
         u->setVisited(true);
-        for (auto u2 : vertexSet) {
-            double dist = Graph::dist(u, u2);
-            if (dist == -1) {
-                dist = haversine(u, u2);
+        for (auto w: u->getAdj()) {
+            auto v = w->getDest();
+            if (!v->isVisited() && w->getDistance() < v->getDist()) {
+                v->setPath(w);
+                v->setDist(w->getDistance());
+                q.decreaseKey(v);
             }
         }
-        /* old
-            for (auto w : u->getAdj()) {
-                auto v = w->getDest();
-                if (!v->isVisited() && w->getDistance() < v->getDist()) {
-                    v->setPath(w);
-                    v->setDist(w->getDistance());
-                    q.decreaseKey(v);
-                }
-            }*/
     }
     return res;
 }
 
+double Graph::calculateDistance(Vertex *v1,Vertex *v2){
+    double distance = Graph::dist(v1,v2);
+    if (distance == -1.0){
+        distance = Graph::Haversine(v1,v2);
+    }
+    return distance;
+}
+/*
+void Graph::dfs(Vertex* v, std::vector<Vertex*>& visited) {
+    visited.push_back(v);
+    v->setVisited(true);
+
+    for (auto w : v->getAdj()) {
+        auto u = w->getDest();
+            dfs(u, visited);
+        }
+    }
+}
+
+std::vector<Vertex*> Graph::dfsMST() {
+    std::vector<Vertex*> res;
+    std::vector<Vertex*> visited;
+
+    for (auto v : vertexSet) {
+        v->setVisited(false);
+    }
+
+    Vertex* startVertex = *vertexSet.begin();
+    dfs(startVertex, visited);
+
+    return visited;
+}
+
+*/
 double Graph::dist(Vertex *source, Vertex *dest) {
     for (auto v : vertexSet) {
         if (v->getId() == source->getId()) {
@@ -189,21 +225,21 @@ double Graph::dist(Vertex *source, Vertex *dest) {
             }
         }
     }
-    return -1;
+    return -1.0;
 }
 
-double
 
-double Graph::Haversine(lat1, lon1, lat2, lon2) {
+double Graph::Haversine(Vertex* v1, Vertex* v2) {
+    double v1_lat_rad = (v1->getCoords()->latitude * M_PI) / 180.0;
+    double v2_lat_rad = (v2->getCoords()->latitude * M_PI) / 180.0;
+    double v1_lon_rad = (v1->getCoords()->longitude * M_PI) / 180.0;
+    double v2_lon_rad = (v2->getCoords()->longitude * M_PI) / 180.0;
 
-    rad_lat1, rad_lon1, rad_lat2, rad_lon2 = convert_to_radians(lat1), convert_to_radians(lon1),
-            convert_to_radians(lat2), convert_to_radians(lon2)
-
-    delta_lat = rad_lat2 - rad_lat1
-    delta_lon = rad_lon2 - rad_lon1
-    aux = sin ^ 2(delta_lat / 2) + cos(rad_lat1) * cos(rad_lat2) * sin ^ 2(delta_lon / 2)
-    c = 2.0 * atan2(sqrt(a), sqrt(1.0 - a))
-    earthradius = 6371000(in
-    meters)
-    return earthradius * c
+    double delta_lat = v2_lat_rad  - v1_lat_rad;
+    double delta_lon = v2_lon_rad - v1_lon_rad;
+    double aux = std::sin(delta_lat / 2.0) * std::sin(delta_lat / 2.0) + std::cos(v1_lat_rad) * std::cos(v2_lat_rad) * std::sin(delta_lon / 2.0) * std::sin(delta_lon / 2.0);
+    double c = 2.0 * std::atan2(std::sqrt(aux), std::sqrt(1.0 - aux));
+    double earthradius = 6371000.0;
+    return earthradius * c;
 }
+
