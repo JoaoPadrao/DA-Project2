@@ -3,14 +3,29 @@
 
 Printer::Printer() = default;
 
-Printer::Printer(const std::string& filePath) {
-    std::ifstream fileIn(filePath);
-    Reader::readEdges(fileIn, graph);
+Printer::Printer(const std::string& edgesPath) {
+    std::ifstream edgesIn(edgesPath);
+    Reader::readEdges(edgesIn, graph);
+    if(edgesPath.find("real_graphs") != std::string::npos) {
+        std::string nodesPath = edgesPath;
+        size_t pos = nodesPath.find("edges");
+        if (pos != std::string::npos) {
+            nodesPath.replace(pos, 5, "nodes");
+            std::ifstream nodesIn(nodesPath);
+            Reader::readNodes(nodesIn, graph);
+        }
+    }
 }
 
 void Printer::printContent() {
     int m = 0;
     for(auto v: graph.getVertexSet()){
+        if(v->getCoords() != nullptr)
+            std::cout <<
+                      "NODE: " << v->getId() <<
+                      " || LATITUDE: " << v->getCoords()->latitude <<
+                      " || LONGITUDE: " << v->getCoords()->longitude <<
+                      std::endl;
         for(auto e: v->getAdj()) {
             std::cout << "SOURCE: " << e->getOrig()->getId() << " || DEST: " << e->getDest()->getId() << " || DISTANCE: " << e->getDistance() << std::endl;
             m++;

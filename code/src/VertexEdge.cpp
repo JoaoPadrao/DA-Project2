@@ -6,6 +6,10 @@
 
 Vertex::Vertex(int id): id(id) {}
 
+Vertex::~Vertex() {
+    delete coords;
+}
+
 /*
  * Auxiliary function to add an outgoing edge to a vertex (this),
  * with a given destination vertex (d) and edge weight (w).
@@ -88,6 +92,10 @@ std::vector<Edge *> Vertex::getIncoming() const {
     return this->incoming;
 }
 
+Coords* Vertex::getCoords() const {
+    return coords;
+}
+
 void Vertex::setId(int id) {
     this->id = id;
 }
@@ -110,6 +118,11 @@ void Vertex::setDist(double dist) {
 
 void Vertex::setPath(Edge *path) {
     this->path = path;
+}
+
+void Vertex::setCoords(double longitude, double latitude) {
+    Coords* newCoords = new Coords{longitude, latitude};
+    coords = newCoords;
 }
 
 void Vertex::deleteEdge(Edge *edge) {
