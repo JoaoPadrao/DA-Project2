@@ -95,6 +95,9 @@ Coords* Vertex::getCoords() const {
     return coords;
 }
 
+std::vector<int>& Vertex::getDestVertexVector() {
+    return dest_vertex;
+}
 
 void Vertex::setId(int id) {
     this->id = id;

@@ -55,12 +55,20 @@ void Printer::printCostAndPath() {
 
 void Printer::printCostAndPathTAH() {
     std::vector<Vertex*> path;
-
+    auto firstVertex = graph.findVertex(0);
     auto start = std::chrono::high_resolution_clock::now();
 
-    auto mst = graph.mst();
+    auto mst = graph.mstPrim();
 
-    double total_cost = graph.tsp_TRIANG_approx(mst);
+    graph.addVectorPath();
+
+    for(auto v : graph.getVertexSet()){
+        v->setVisited(false);
+    }
+
+    graph.dfs(firstVertex,path);
+
+    double total_cost = graph.tsp_TRIANG_approx(path);
 
     auto end = std::chrono::high_resolution_clock::now();
 
@@ -72,7 +80,7 @@ void Printer::printCostAndPathTAH() {
         }
     }
     std:: cout << "Pre-order: ";
-    for (auto v : mst){
+    for (auto v : path){
         std::cout << v->getId() << " -> ";
     }
     std::cout << "0" << std::endl;
@@ -80,4 +88,5 @@ void Printer::printCostAndPathTAH() {
 
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
     std::cout << "Execution time: " << duration << " milliseconds" << std::endl;
+
 }

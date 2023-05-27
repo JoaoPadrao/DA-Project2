@@ -73,7 +73,7 @@ double Graph::tspBT(std::vector<Vertex*> &path) {
 
 /**
 * Finds the shortest path that visits all vertices in the graph using the Triangular Approximation Heuristic algorithm\n
-* Complexity: O(n^3) n-> number of vertices
+* Complexity:
 * @param path reference to a vector of vertices that represents the shortest path found so far
 * @return double that represents the cost of the best path
 */
@@ -98,7 +98,7 @@ std::vector<Vertex *> Graph::getVertexSet() const {
 
 /**
  * This method finds a vertex in the graph with a certain id \n
- * Complexity: O(V) V-> number of vertices;
+ * Complexity: O(V) V-> number of vertices
  * @param id id to be searched
  * @return pointer to the vertex / null pointer if it doesn't exist
  */
@@ -152,7 +152,12 @@ bool Graph::addBidirectionalEdge(const int &sourc, const int &dest, double w) {
     return true;
 }
 
-std::vector<Vertex *> Graph::mst() {
+/**
+ * Calculates the minimum spanning tree of the graph using Prim's algorithm.
+ * Complexity: O(|V|+|E|*log|V|) V-> number of vertices; E-> number of edges
+ * @return Vector containing the vertices of the minimum spanning tree.
+ */
+std::vector<Vertex *> Graph::mstPrim() {
     MutablePriorityQueue<Vertex> q;
     std::vector<Vertex *> res;
     for (auto v: vertexSet) {
@@ -181,6 +186,29 @@ std::vector<Vertex *> Graph::mst() {
     return res;
 }
 
+/**
+ * Adds the IDs of the destination vertices, for each vertex, to the destination vertex vector.
+ * Complexity: O(|V|) V-> number of vertices;
+ */
+void Graph::addVectorPath() {
+    for (auto v : vertexSet) {
+        if (v->getPath() != nullptr) {
+            auto initial_vertex = v->getPath()->getOrig();
+            std::vector<int>& initVertexVector = initial_vertex->getDestVertexVector();
+            initVertexVector.push_back(v->getPath()->getDest()->getId());
+        }
+    }
+}
+
+/**
+ * Calculates the distance between two vertices in the graph.
+ * The function calculate the distance using the existing distance value stored in the graph between the two vertices.
+ * If there is no edge, it uses the Haversine formula to calculate the distance.
+ * Complexity: O(V+E) V-> number of vertices; E-> number of edges
+ * @param v1 Pointer to the first vertex.
+ * @param v2 Pointer to the second vertex.
+ * @return The distance between the two vertices.
+ */
 double Graph::calculateDistance(Vertex *v1,Vertex *v2){
     double distance = Graph::dist(v1,v2);
     if (distance == -1.0){
@@ -188,33 +216,32 @@ double Graph::calculateDistance(Vertex *v1,Vertex *v2){
     }
     return distance;
 }
-/*
+
+/**
+ * Performs a depth-first search (DFS) starting from a given vertex.
+ * Complexity: O(V*n) V-> number of vertices; n-> number of vertices in vector
+ * @param v Pointer to the starting vertex for the DFS.
+ * @param visited Reference to a vector to store the visited vertices.
+ */
 void Graph::dfs(Vertex* v, std::vector<Vertex*>& visited) {
     visited.push_back(v);
     v->setVisited(true);
 
-    for (auto w : v->getAdj()) {
-        auto u = w->getDest();
-            dfs(u, visited);
+    for (auto w : v->getDestVertexVector()) {
+        auto u = Graph::findVertex(w);
+            if(!u->isVisited()) {
+                dfs(u, visited);
+            }
         }
-    }
 }
 
-std::vector<Vertex*> Graph::dfsMST() {
-    std::vector<Vertex*> res;
-    std::vector<Vertex*> visited;
-
-    for (auto v : vertexSet) {
-        v->setVisited(false);
-    }
-
-    Vertex* startVertex = *vertexSet.begin();
-    dfs(startVertex, visited);
-
-    return visited;
-}
-
-*/
+/**
+ * Calculate the distance between two vertices
+ * Complexity: O(V+E) V-> number of vertices; E-> number of edges
+ * @param source Pointer to the source vertex.
+ * @param dest Pointer to the destination vertex.
+ * @return The distance between the two vertices if there is an edge between them,or -1.0 if not.
+ */
 double Graph::dist(Vertex *source, Vertex *dest) {
     for (auto v : vertexSet) {
         if (v->getId() == source->getId()) {
@@ -228,7 +255,13 @@ double Graph::dist(Vertex *source, Vertex *dest) {
     return -1.0;
 }
 
-
+/**
+ * Calculates the Haversine distance between two vertex
+ * Complexity: O(1)
+ * @param v1 Pointer to the first vertex.
+ * @param v2 Pointer to the second vertex.
+ * @return The Haversine distance between the two vertex.
+ */
 double Graph::Haversine(Vertex* v1, Vertex* v2) {
     double v1_lat_rad = (v1->getCoords()->latitude * M_PI) / 180.0;
     double v2_lat_rad = (v2->getCoords()->latitude * M_PI) / 180.0;

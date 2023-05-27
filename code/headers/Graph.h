@@ -22,12 +22,11 @@ public:
     double calculateDistance(Vertex *v1,Vertex *v2);
 
     void dfs(Vertex* v, std::vector<Vertex*>& visited);
-    std::vector<Vertex*> dfsMST();
 
     double Haversine(Vertex* v1, Vertex* v2);
 
 
-        void backtracking(std::vector<Vertex*> &path, std::vector<Vertex*> currPath, double currCost, double &bestCost, int
+    void backtracking(std::vector<Vertex*> &path, std::vector<Vertex*> currPath, double currCost, double &bestCost, int
     index);
 
     double tspBT(std::vector<Vertex*> &path);
@@ -42,8 +41,8 @@ public:
     bool addEdge(const int &sourc, const int &dest, double w);
     bool addBidirectionalEdge(const int &sourc, const int &dest, double w);
 
-    std::vector<Vertex *> mst();
-
+    std::vector<Vertex *> mstPrim();
+    void addVectorPath();
     int getNumVertex() const;
     std::vector<Vertex *> getVertexSet() const;
 

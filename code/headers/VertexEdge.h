@@ -27,6 +27,7 @@ public:
     Edge *getPath() const;
     std::vector<Edge *> getIncoming() const;
     Coords* getCoords() const;
+    std::vector<int>& getDestVertexVector();
 
     void setId(int info);
     void setVisited(bool visited);
@@ -45,7 +46,7 @@ protected:
 
     int id;                // identifier
     std::vector<Edge *> adj;  // outgoing edges
-
+    std::vector<int> dest_vertex;
     // auxiliary fields
     bool visited = false; // used by DFS, BFS, Prim ...
     bool processing = false; // used by isDAG (in addition to the visited attribute)
