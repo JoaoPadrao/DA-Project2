@@ -101,11 +101,9 @@ int Graph::findVertexIdx(const int &id) const {
     return -1;
 }
 
-bool Graph::addVertex(const int &id) {
-    if (findVertex(id) != nullptr)
-        return false;
+Vertex* Graph::addVertex(const int &id) {
     vertexSet.push_back(new Vertex(id));
-    return true;
+    return vertexSet.back();
 }
 
 /*
@@ -122,9 +120,7 @@ bool Graph::addEdge(const int &sourc, const int &dest, double w) {
     return true;
 }
 
-bool Graph::addBidirectionalEdge(const int &sourc, const int &dest, double w) {
-    auto v1 = findVertex(sourc);
-    auto v2 = findVertex(dest);
+bool Graph::addBidirectionalEdge(Vertex* v1, Vertex* v2, double w) {
     if (v1 == nullptr || v2 == nullptr)
         return false;
     auto e1 = v1->addEdge(v2, w);

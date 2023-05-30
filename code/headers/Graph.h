@@ -9,11 +9,12 @@ public:
     * Auxiliary function to find a vertex with a given ID.
     */
     Vertex *findVertex(const int &id) const;
+
     /*
      *  Adds a vertex with a given content or info (in) to a graph (this).
-     *  Returns true if successful, and false if a vertex with that content already exists.
+     *  Returns a pointer do that vertex
      */
-    bool addVertex(const int &id);
+    Vertex* addVertex(const int &id);
 
     double dist(int source, int dest);
 
@@ -28,7 +29,8 @@ public:
      * Returns true if successful, and false if the source or destination vertex does not exist.
      */
     bool addEdge(const int &sourc, const int &dest, double w);
-    bool addBidirectionalEdge(const int &sourc, const int &dest, double w);
+
+    bool addBidirectionalEdge(Vertex* v1, Vertex* v2, double w);
 
     int getNumVertex() const;
     std::vector<Vertex *> getVertexSet() const;
