@@ -51,6 +51,7 @@ Printer Menu::readSelectedFile() {
                 std::cout << std::endl;
 
                 if(graphChosen == "1")  {
+                    this->isShippingGraph = true;
                     return {"../code/data/toys_graph/shipping.csv"};
                 } else if(graphChosen == "2")  {
                     return {"../code/data/toys_graph/stadiums.csv"};
@@ -130,10 +131,12 @@ void Menu::run() {
         }else if (option == "2") {
             printer.printCostAndPath();
         }else if (option == "3") {
-            printer.printCostAndPathTAH();
+            if(this->isShippingGraph) printer.printCostAndPathTAH(isShippingGraph);
+            else printer.printCostAndPathTAH(isShippingGraph);
         }else if (option == "4") {
             toBeImplemented();
         }else if (option == "5") {
+            this->isShippingGraph = false;
             printer = readSelectedFile();
         }else if (option == "6") {
             break;

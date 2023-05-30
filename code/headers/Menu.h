@@ -11,7 +11,7 @@ public:
     void run();
 private:
     Printer readSelectedFile();
-
+    bool isShippingGraph = false;
     Printer printer;
 };
 #endif //FEUP_DA_PROJ2_MENU_H

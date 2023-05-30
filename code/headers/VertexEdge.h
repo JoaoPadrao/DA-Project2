@@ -78,7 +78,7 @@ public:
     void setReverse(Edge *reverse);
 protected:
     Vertex * dest;
-    double dist;
+    double dist = 0.0;
 
     // auxiliary fields
     bool selected = false;

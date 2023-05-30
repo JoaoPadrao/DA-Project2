@@ -88,6 +88,34 @@ double Graph::tsp_TRIANG_approx(std::vector<Vertex*> &path) {
     return cost;
 }
 
+double Graph::calculateShipping(std::vector<Vertex*> &path){
+    double cost = 0.0;
+    Vertex* vertex_0 = Graph::findVertex(0);
+    int last_index = path.size();
+    double sum = 0.0;
+
+    for(auto v : path){
+        sum += v->getDist();
+    }
+    sum = sum / path.size(); // Average of the all edges (distance)
+
+
+    for(int i = 0; i < path.size() -1; i++){
+        double dist = Graph::dist(path[i],path[i+1]);
+        if(dist == -1){
+            dist = sum;
+        }
+        cost += dist;
+    }
+
+    if(Graph::dist(path[last_index-1],vertex_0) == -1){
+        cost += sum;
+    }
+    else cost += Graph::dist(path[last_index-1],vertex_0);
+
+    return cost;
+}
+
 int Graph::getNumVertex() const {
     return vertexSet.size();
 }

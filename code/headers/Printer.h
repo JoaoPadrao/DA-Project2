@@ -13,7 +13,7 @@ public:
 
     void printContent();
     void printCostAndPath();
-    void printCostAndPathTAH();
+    void printCostAndPathTAH(bool isShippingGraph);
 private:
     Graph graph;
 };
