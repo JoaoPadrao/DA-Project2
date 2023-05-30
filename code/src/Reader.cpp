@@ -25,9 +25,23 @@ void Reader::readEdges(std::ifstream &in, Graph& graph) {
         getline(ss, aux, '\n');
         dist = std::stod(aux);
 
-        graph.addVertex(srcID);
-        graph.addVertex(destID);
-        graph.addBidirectionalEdge(srcID, destID, dist);
+        Vertex* src = nullptr;
+        Vertex* dest = nullptr;
+
+        for (auto v : graph.getVertexSet()) {
+            if (v->getId() == srcID) src = v;
+            if (v->getId() == destID) dest = v;
+        }
+
+        if (src == nullptr) {
+            src = graph.addVertex(srcID);
+        }
+
+        if (dest == nullptr) {
+            dest = graph.addVertex(destID);
+        }
+
+        graph.addBidirectionalEdge(src, dest, dist);
     }
 }
 
