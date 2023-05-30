@@ -30,8 +30,10 @@ void Printer::printContent() {
             std::cout << "SOURCE: " << e->getOrig()->getId() << " || DEST: " << e->getDest()->getId() << " || DISTANCE: " << e->getDistance() << std::endl;
             m++;
         }
+
     }
     std::cout << "Edges count: " << m << " || VERTICES: " << graph.getVertexSet().size()<<std::endl;
+
 }
 
 void Printer::printCostAndPath() {
@@ -43,12 +45,53 @@ void Printer::printCostAndPath() {
 
     auto end = std::chrono::high_resolution_clock::now();
 
-    std::cout << "Cost: " << cost << std::endl;
     std::cout << "Path:";
     for (auto v : path) {
         std::cout << " " << v->getId();
     }
     std::cout << std::endl;
+    std::cout << "Cost: " << cost << std::endl;
+
+    std::cout << std::endl;
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
     std::cout << "Execution time: " << duration << " milliseconds" << std::endl;
+}
+
+void Printer::printCostAndPathTAH(bool isShippingGraph) {
+    std::vector<Vertex*> path;
+    auto firstVertex = graph.findVertex(0);
+    auto start = std::chrono::high_resolution_clock::now();
+    double total_cost = 0.0;
+    auto mst = graph.mstPrim();
+
+    graph.addVectorPath();
+
+    for(auto v : graph.getVertexSet()){
+        v->setVisited(false);
+    }
+
+    graph.dfs(firstVertex,path);
+
+    if(isShippingGraph) total_cost = graph.calculateShipping(path);
+    else total_cost = graph.tsp_TRIANG_approx(path);
+
+    auto end = std::chrono::high_resolution_clock::now();
+
+    std::cout << "Minimum Spanning Tree (Prim Algorithm):" << std::endl;
+    for (auto v : mst) {
+        if (v->getPath() != nullptr) {
+            Edge *edge = v->getPath();
+            std::cout << edge->getOrig()->getId() << " - " << edge->getDest()->getId() << std::endl;
+        }
+    }
+    std:: cout << "Pre-order: ";
+    for (auto v : path){
+        std::cout << v->getId() << " -> ";
+    }
+    std::cout << "0" << std::endl;
+    std::cout << "Cost: " << total_cost << std::endl;
+
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+    std::cout << "Execution time: " << duration << " milliseconds" << std::endl;
+
 }

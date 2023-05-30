@@ -4,6 +4,8 @@
 #include <vector>
 #include <climits>
 
+#include "MutablePriorityQueue.h"
+
 class Edge;
 
 struct Coords {
@@ -25,6 +27,8 @@ public:
     Edge *getPath() const;
     std::vector<Edge *> getIncoming() const;
     Coords* getCoords() const;
+    std::vector<int>& getDestVertexVector();
+
 
     void setId(int info);
     void setVisited(bool visited);
@@ -36,18 +40,21 @@ public:
     Edge * addEdge(Vertex *dest, double w);
     bool removeEdge(int destID);
     void removeOutgoingEdges();
+    bool operator<(Vertex & vertex) const;
 
 protected:
+    friend class MutablePriorityQueue<Vertex>;
+
     int id;                // identifier
     std::vector<Edge *> adj;  // outgoing edges
-
+    std::vector<int> dest_vertex;
     // auxiliary fields
     bool visited = false; // used by DFS, BFS, Prim ...
     bool processing = false; // used by isDAG (in addition to the visited attribute)
     unsigned int indegree; // used by topsort
     double dist = 0;
     Edge *path = nullptr;
-    bool operator<(Vertex & vertex) const;
+    Coords *coords = nullptr;
 
     Coords *coords = nullptr;
 
@@ -74,7 +81,7 @@ public:
     void setReverse(Edge *reverse);
 protected:
     Vertex * dest;
-    double dist;
+    double dist = 0.0;
 
     // auxiliary fields
     bool selected = false;

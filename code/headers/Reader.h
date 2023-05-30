@@ -11,6 +11,7 @@ class Reader {
 public:
     static void readEdges(std::ifstream &in, Graph& graph);
     static void readNodes(std::ifstream &in, Graph& graph);
+
 };
 
 #endif //FEUP_DA_PROJ2_READER_H
