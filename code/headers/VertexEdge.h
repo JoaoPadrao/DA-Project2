@@ -29,6 +29,7 @@ public:
     Coords* getCoords() const;
     std::vector<int>& getDestVertexVector();
 
+
     void setId(int info);
     void setVisited(bool visited);
     void setProcesssing(bool processing);
@@ -53,6 +54,8 @@ protected:
     unsigned int indegree; // used by topsort
     double dist = 0;
     Edge *path = nullptr;
+    Coords *coords = nullptr;
+
     Coords *coords = nullptr;
 
     std::vector<Edge *> incoming; // incoming edges

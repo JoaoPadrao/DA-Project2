@@ -9,6 +9,10 @@ Vertex::~Vertex() {
     delete coords;
 }
 
+Vertex::~Vertex() {
+    delete coords;
+}
+
 /*
  * Auxiliary function to add an outgoing edge to a vertex (this),
  * with a given destination vertex (d) and edge weight (w).

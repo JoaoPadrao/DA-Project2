@@ -20,7 +20,6 @@ Printer::Printer(const std::string& edgesPath) {
 void Printer::printContent() {
     int m = 0;
     for(auto v: graph.getVertexSet()){
-
         if(v->getCoords() != nullptr)
             std::cout <<
                       "NODE: " << v->getId() <<
