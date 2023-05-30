@@ -9,9 +9,6 @@ Vertex::~Vertex() {
     delete coords;
 }
 
-Vertex::~Vertex() {
-    delete coords;
-}
 
 /*
  * Auxiliary function to add an outgoing edge to a vertex (this),

@@ -56,8 +56,6 @@ protected:
     Edge *path = nullptr;
     Coords *coords = nullptr;
 
-    Coords *coords = nullptr;
-
     std::vector<Edge *> incoming; // incoming edges
 
     int queueIndex = 0; 		// required by MutablePriorityQueue and UFDS
