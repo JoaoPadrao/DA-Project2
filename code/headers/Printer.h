@@ -14,6 +14,7 @@ public:
     void printContent();
     void printCostAndPath();
     void printCostAndPathTAH(bool isShippingGraph);
+    void printCostAndPathHeuristic();
 private:
     Graph graph;
 };

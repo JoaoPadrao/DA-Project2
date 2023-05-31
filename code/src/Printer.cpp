@@ -95,3 +95,23 @@ void Printer::printCostAndPathTAH(bool isShippingGraph) {
     std::cout << "Execution time: " << duration << " milliseconds" << std::endl;
 
 }
+
+void Printer::printCostAndPathHeuristic() {
+    auto start = std::chrono::high_resolution_clock::now();
+
+    std::vector<Vertex*> path;
+
+    double total_cost = graph.tsp_Heuristic(path);
+
+    auto end = std::chrono::high_resolution_clock::now();
+
+    std:: cout << "Path: ";
+    for (auto v : path){
+        std::cout << v->getId() << " -> ";
+    }
+    std::cout << "0" << std::endl;
+    std::cout << "Cost: " << total_cost << std::endl;
+
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+    std::cout << "Execution time: " << duration << " milliseconds" << std::endl;
+}

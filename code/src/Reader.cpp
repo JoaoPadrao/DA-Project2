@@ -29,6 +29,7 @@ void Reader::readEdges(std::ifstream &in, Graph& graph) {
         Vertex* dest = nullptr;
 
         for (auto v : graph.getVertexSet()) {
+            if (v == nullptr) continue;
             if (v->getId() == srcID) src = v;
             if (v->getId() == destID) dest = v;
         }

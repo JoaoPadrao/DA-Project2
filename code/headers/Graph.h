@@ -34,6 +34,10 @@ public:
 
     double tsp_TRIANG_approx(std::vector<Vertex*> &path);
     double calculateShipping(std::vector<Vertex*> &path);
+
+    double nearestNeighbour(std::vector<Vertex *> &path);
+    double tsp_Heuristic(std::vector<Vertex *> &path);
+
     /*
      * Adds an edge to a graph (this), given the contents of the source and
      * destination vertices and the edge weight (w).

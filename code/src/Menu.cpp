@@ -134,7 +134,7 @@ void Menu::run() {
             if(this->isShippingGraph) printer.printCostAndPathTAH(isShippingGraph);
             else printer.printCostAndPathTAH(isShippingGraph);
         }else if (option == "4") {
-            toBeImplemented();
+            printer.printCostAndPathHeuristic();
         }else if (option == "5") {
             this->isShippingGraph = false;
             printer = readSelectedFile();

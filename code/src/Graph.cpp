@@ -148,8 +148,10 @@ int Graph::findVertexIdx(const int &id) const {
 }
 
 Vertex* Graph::addVertex(const int &id) {
-    vertexSet.push_back(new Vertex(id));
-    return vertexSet.back();
+    if (id >= vertexSet.size()) vertexSet.resize(id + 1, nullptr);
+
+    if (vertexSet[id] == nullptr) vertexSet[id] = new Vertex(id);
+    return vertexSet[id];
 }
 
 /*
@@ -298,5 +300,66 @@ double Graph::Haversine(Vertex* v1, Vertex* v2) {
     double c = 2.0 * std::atan2(std::sqrt(aux), std::sqrt(1.0 - aux));
     double earthradius = 6371000.0;
     return earthradius * c;
+}
+
+
+double Graph::nearestNeighbour(std::vector<Vertex*> &path) {
+    double cost = 0;
+    for(Vertex* v: vertexSet) {
+        v->setVisited(false);
+    }
+
+    Vertex* currentVertex = findVertex(0);
+    path.clear();
+    path.push_back(currentVertex);
+    currentVertex->setVisited(true);
+
+    while (path.size() < getNumVertex()) {
+        double minDistance = LONG_MAX;
+        Vertex* nextVertex = nullptr;
+
+        for (Edge* edge : currentVertex->getAdj()) {
+            Vertex* neighbor = edge->getDest();
+            if (!neighbor->isVisited() && edge->getDistance() < minDistance) {
+                minDistance = edge->getDistance();
+                nextVertex = neighbor;
+            }
+        }
+
+        if (nextVertex != nullptr) {
+            cost += minDistance;
+            nextVertex->setVisited(true);
+            path.push_back(nextVertex);
+            currentVertex = nextVertex;
+        }
+    }
+
+    cost += calculateDistance(path[path.size() - 1], path[0]);
+
+    return cost;
+}
+
+double Graph::tsp_Heuristic(std::vector<Vertex*> &path) {
+    double cost = nearestNeighbour(path);
+
+    bool improved = true;
+    while (improved) {
+        improved = false;
+
+        for (int i = 0; i < path.size() - 2; i++) {
+            for (int j = i + 2; j < path.size() - 1; j++) {
+                double oldCost = calculateDistance(path[i], path[i + 1]) + calculateDistance(path[j], path[j + 1]);
+                double newCost = calculateDistance(path[i], path[j]) + calculateDistance(path[i + 1], path[j + 1]);
+
+                if (newCost < oldCost) {
+                    std::reverse(path.begin() + i + 1, path.begin() + j + 1);
+                    cost -= oldCost - newCost;
+                    improved = true;
+                }
+            }
+        }
+    }
+
+    return cost;
 }
 
