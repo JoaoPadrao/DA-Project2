@@ -9,6 +9,12 @@ Vertex::~Vertex() {
     delete coords;
 }
 
+void Vertex::add(std::vector<Edge*> &vec, Edge* edge) {
+    int id = edge->getDest()->getId();
+    if (id >= vec.size()) vec.resize(id + 1, nullptr);
+
+    if (vec[id] == nullptr) vec[id] = edge;
+}
 
 /*
  * Auxiliary function to add an outgoing edge to a vertex (this),
@@ -16,8 +22,8 @@ Vertex::~Vertex() {
  */
 Edge * Vertex::addEdge(Vertex *d, double w) {
     auto newEdge = new Edge(this, d, w);
-    adj.push_back(newEdge);
-    d->incoming.push_back(newEdge);
+    add(adj, newEdge);
+    add(d->incoming, newEdge);
     return newEdge;
 }
 

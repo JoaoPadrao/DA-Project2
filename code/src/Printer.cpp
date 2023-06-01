@@ -27,6 +27,7 @@ void Printer::printContent() {
                       " || LONGITUDE: " << v->getCoords()->longitude <<
                       std::endl;
         for(auto e: v->getAdj()) {
+            if (e == nullptr) continue;
             std::cout << "SOURCE: " << e->getOrig()->getId() << " || DEST: " << e->getDest()->getId() << " || DISTANCE: " << e->getDistance() << std::endl;
             m++;
         }

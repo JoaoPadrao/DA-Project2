@@ -61,6 +61,8 @@ protected:
     int queueIndex = 0; 		// required by MutablePriorityQueue and UFDS
 
     void deleteEdge(Edge *edge);
+
+    static void add(std::vector<Edge *> &vec, Edge *edge);
 };
 
 /********************** Edge  ****************************/

@@ -14,6 +14,7 @@ double Graph::dist(int source, int dest) {
     for (auto v : vertexSet) {
         if (v->getId() == source) {
             for (auto e : v->getAdj()) {
+                if (e == nullptr) continue;
                 if (e->getDest()->getId() == dest) {
                     return e->getDistance();
                 }
@@ -201,6 +202,7 @@ std::vector<Vertex *> Graph::mstPrim() {
         res.push_back(u);
         u->setVisited(true);
         for (auto w: u->getAdj()) {
+            if (w == nullptr) continue;
             auto v = w->getDest();
             if (!v->isVisited() && w->getDistance() < v->getDist()) {
                 v->setPath(w);
@@ -269,16 +271,13 @@ void Graph::dfs(Vertex* v, std::vector<Vertex*>& visited) {
  * @return The distance between the two vertices if there is an edge between them,or -1.0 if not.
  */
 double Graph::dist(Vertex *source, Vertex *dest) {
-    for (auto v : vertexSet) {
-        if (v->getId() == source->getId()) {
-            for (auto e : v->getAdj()) {
-                if (e->getDest()->getId() == dest->getId()) {
-                    return e->getDistance();
-                }
-            }
-        }
+    try {
+        Edge* edge = source->getAdj()[dest->getId()];
+        if (edge == nullptr) return -1;
+        return edge->getDistance();
+    } catch (const std::out_of_range&) {
+        return -1;
     }
-    return -1.0;
 }
 
 /**
@@ -319,6 +318,7 @@ double Graph::nearestNeighbour(std::vector<Vertex*> &path) {
         Vertex* nextVertex = nullptr;
 
         for (Edge* edge : currentVertex->getAdj()) {
+            if (edge == nullptr) continue;
             Vertex* neighbor = edge->getDest();
             if (!neighbor->isVisited() && edge->getDistance() < minDistance) {
                 minDistance = edge->getDistance();
