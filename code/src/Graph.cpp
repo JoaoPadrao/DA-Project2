@@ -301,7 +301,12 @@ double Graph::Haversine(Vertex* v1, Vertex* v2) {
     return earthradius * c;
 }
 
-
+/**
+* Finds the shortest path that visits all vertices in the graph using the nearest neighbour algorithm. \n
+* Complexity: O(V+E) V-> number of vertices; E-> number of edges
+* @param path reference to a vector of vertices that represents the shortest path found
+* @return double that represents the cost of the best path
+*/
 double Graph::nearestNeighbour(std::vector<Vertex*> &path) {
     double cost = 0;
     for(Vertex* v: vertexSet) {
@@ -339,6 +344,12 @@ double Graph::nearestNeighbour(std::vector<Vertex*> &path) {
     return cost;
 }
 
+/**
+* Finds the shortest path that visits all vertices in the graph using our own heuristic. \n
+* Complexity:
+* @param path reference to a vector of vertices that represents the shortest path found
+* @return double that represents the cost of the best path
+*/
 double Graph::tsp_Heuristic(std::vector<Vertex*> &path) {
     double cost = nearestNeighbour(path);
 
