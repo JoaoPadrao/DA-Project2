@@ -27,7 +27,10 @@ void Printer::printContent() {
                       " || LONGITUDE: " << v->getCoords()->longitude <<
                       std::endl;
         for(auto e: v->getAdj()) {
-            if (e == nullptr) continue;
+            if (e == nullptr) {
+                std::cout << "SOURCE: null || DEST: null" << std::endl;
+                continue;
+            }
             std::cout << "SOURCE: " << e->getOrig()->getId() << " || DEST: " << e->getDest()->getId() << " || DISTANCE: " << e->getDistance() << std::endl;
             m++;
         }
@@ -74,7 +77,7 @@ void Printer::printCostAndPathTAH(bool isShippingGraph) {
     graph.dfs(firstVertex,path);
 
     if(isShippingGraph) total_cost = graph.calculateShipping(path);
-    else total_cost = graph.tsp_TRIANG_approx(path);
+    else total_cost = graph.tspTriangular(path);
 
     auto end = std::chrono::high_resolution_clock::now();
 
@@ -102,7 +105,7 @@ void Printer::printCostAndPathHeuristic() {
 
     std::vector<Vertex*> path;
 
-    double total_cost = graph.tsp_Heuristic(path);
+    double total_cost = graph.tspHeuristic(path);
 
     auto end = std::chrono::high_resolution_clock::now();
 

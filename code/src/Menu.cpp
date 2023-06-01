@@ -5,10 +5,6 @@ Menu::Menu() {
     printer = readSelectedFile();
 }
 
-void toBeImplemented() {
-    std::cout << "This functionality is yet to be implemented." << std::endl;
-}
-
 Printer Menu::readSelectedFile() {
     std::cout << "[1] Read real graph" << std::endl;
     std::cout << "[2] Read toy graph" << std::endl;

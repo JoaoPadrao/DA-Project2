@@ -9,7 +9,18 @@
 
 class Reader {
 public:
+    /**
+     * The method reads an edges file and stores the data in both the nodes and edges of the graph.
+     * @param in edges file ifstream
+     * @param graph
+     */
     static void readEdges(std::ifstream &in, Graph& graph);
+
+    /**
+     * The method reads a nodes file and stores the coordinates data in the nodes of the graph.
+     * @param in nodes file ifstream
+     * @param graph
+     */
     static void readNodes(std::ifstream &in, Graph& graph);
 
 };

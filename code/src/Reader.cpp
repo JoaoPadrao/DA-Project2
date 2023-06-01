@@ -1,10 +1,5 @@
 #include "../headers/Reader.h"
 
-/**
- * The method reads an edges file and stores the data in both the nodes and edges of the graph.
- * @param in edges file ifstream
- * @param graph
- */
 void Reader::readEdges(std::ifstream &in, Graph& graph) {
     std::string aux;
     int srcID, destID;
@@ -46,11 +41,7 @@ void Reader::readEdges(std::ifstream &in, Graph& graph) {
     }
 }
 
-/**
- * The method reads a nodes file and stores the coordinates data in the nodes of the graph.
- * @param in nodes file ifstream
- * @param graph
- */
+
 void Reader::readNodes(std::ifstream &in, Graph& graph) {
     std::string aux;
     int id;
@@ -71,6 +62,6 @@ void Reader::readNodes(std::ifstream &in, Graph& graph) {
         getline(ss, aux, '\n');
         latitude = std::stod(aux);
 
-        graph.findVertex(id)->setCoords(longitude, latitude);
+        graph.getVertexSet()[id]->setCoords(longitude, latitude);
     }
 }
