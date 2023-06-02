@@ -7,9 +7,10 @@ class Graph {
 public:
 
     /**
-     *
+     * Finds a vertex with a given id in the graph. \n
+     * Complexity: O(1)
      * @param id
-     * @return
+     * @return A pointer to the found vertex (nullptr if not found)
      */
     Vertex* findVertex(const int &id);
 
@@ -76,7 +77,7 @@ public:
 
     /**
      * Creates the Minimum Spanning Tree (MST) of the graph using Prim's algorithm. \n
-     * Complexity: O(V^2) V-> number of vertices
+     * Complexity: O((V+E)*log V) V-> number of vertices; E-> number of edges
      * @return Vector containing the vertices of the Minimum Spanning Tree (MST)
      */
     std::vector<Vertex *> mstPrim();

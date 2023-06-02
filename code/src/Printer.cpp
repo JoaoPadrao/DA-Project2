@@ -3,7 +3,7 @@
 
 Printer::Printer() = default;
 
-Printer::Printer(const std::string& edgesPath, bool connected) {
+Printer::Printer(const std::string& edgesPath) {
     std::ifstream edgesIn(edgesPath);
     Reader::readEdges(edgesIn, graph);
     if(edgesPath.find("real_graphs") != std::string::npos) {
@@ -15,7 +15,6 @@ Printer::Printer(const std::string& edgesPath, bool connected) {
             Reader::readNodes(nodesIn, graph);
         }
     }
-    this->connected = connected;
 }
 
 void Printer::printContent() {
@@ -82,14 +81,7 @@ void Printer::printCostAndPathTAH(bool isShippingGraph) {
 
     auto end = std::chrono::high_resolution_clock::now();
 
-    std::cout << "Minimum Spanning Tree (Prim Algorithm):" << std::endl;
-    for (auto v : mst) {
-        if (v->getPath() != nullptr) {
-            Edge *edge = v->getPath();
-            std::cout << edge->getOrig()->getId() << " - " << edge->getDest()->getId() << std::endl;
-        }
-    }
-    std:: cout << "Pre-order: ";
+    std:: cout << "Path: ";
     for (auto v : path){
         std::cout << v->getId() << " -> ";
     }
@@ -108,6 +100,11 @@ void Printer::printCostAndPathHeuristic() {
 
     double total_cost = graph.tspHeuristic(path);
 
+    if(total_cost == -1.0) {
+        std::cout << "Our algorithm doesn't work with graphs not fully connected.\n";
+        return;
+    }
+
     auto end = std::chrono::high_resolution_clock::now();
 
     std:: cout << "Path: ";
@@ -119,8 +116,4 @@ void Printer::printCostAndPathHeuristic() {
 
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
     std::cout << "Execution time: " << duration << " milliseconds" << std::endl;
-}
-
-bool Printer::isConnected() const {
-    return connected;
 }

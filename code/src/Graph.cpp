@@ -209,6 +209,8 @@ double Graph::nearestNeighbour(std::vector<Vertex*> &path) {
             nextVertex->setVisited(true);
             path.push_back(nextVertex);
             currentVertex = nextVertex;
+        } else {
+            return -1.0;
         }
     }
 
@@ -220,6 +222,8 @@ double Graph::nearestNeighbour(std::vector<Vertex*> &path) {
 
 double Graph::tspHeuristic(std::vector<Vertex*> &path) {
     double cost = nearestNeighbour(path);
+
+    if(cost == -1.0) return -1.0;
 
     bool improved = true;
     while (improved) {
