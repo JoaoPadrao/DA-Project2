@@ -5,10 +5,6 @@ Menu::Menu() {
     printer = readSelectedFile();
 }
 
-void toBeImplemented() {
-    std::cout << "This functionality is yet to be implemented." << std::endl;
-}
-
 Printer Menu::readSelectedFile() {
     std::cout << "[1] Read real graph" << std::endl;
     std::cout << "[2] Read toy graph" << std::endl;
@@ -31,11 +27,11 @@ Printer Menu::readSelectedFile() {
                 std::cout << std::endl;
 
                 if(graphChosen == "1")  {
-                    return {"../code/data/real_graphs/graph1/edges.csv"};
+                    return {"../code/data/real_graphs/graph1/edges.csv", true};
                 } else if(graphChosen == "2")  {
-                    return {"../code/data/real_graphs/graph2/edges.csv"};
+                    return {"../code/data/real_graphs/graph2/edges.csv", false};
                 } else if(graphChosen == "3")  {
-                    return {"../code/data/real_graphs/graph3/edges.csv"};
+                    return {"../code/data/real_graphs/graph3/edges.csv", false};
                 }
                 std::cout << std::endl;
             }
@@ -52,11 +48,11 @@ Printer Menu::readSelectedFile() {
 
                 if(graphChosen == "1")  {
                     this->isShippingGraph = true;
-                    return {"../code/data/toys_graph/shipping.csv"};
+                    return {"../code/data/toys_graph/shipping.csv", false};
                 } else if(graphChosen == "2")  {
-                    return {"../code/data/toys_graph/stadiums.csv"};
+                    return {"../code/data/toys_graph/stadiums.csv", true};
                 } else if(graphChosen == "3")  {
-                    return {"../code/data/toys_graph/tourism.csv"};
+                    return {"../code/data/toys_graph/tourism.csv", true};
                 }
                 std::cout << std::endl;
             }
@@ -81,29 +77,29 @@ Printer Menu::readSelectedFile() {
                 std::cout << std::endl;
 
                 if (graphChosen == "1") {
-                    return {"../code/data/medium_graphs/edges_25.csv"};
+                    return {"../code/data/medium_graphs/edges_25.csv", true};
                 } else if (graphChosen == "2") {
-                    return {"../code/data/medium_graphs/edges_50.csv"};
+                    return {"../code/data/medium_graphs/edges_50.csv", true};
                 } else if (graphChosen == "3") {
-                    return {"../code/data/medium_graphs/edges_75.csv"};
+                    return {"../code/data/medium_graphs/edges_75.csv", true};
                 } else if (graphChosen == "4") {
-                    return {"../code/data/medium_graphs/edges_100.csv"};
+                    return {"../code/data/medium_graphs/edges_100.csv", true};
                 } else if (graphChosen == "5") {
-                    return {"../code/data/medium_graphs/edges_200.csv"};
+                    return {"../code/data/medium_graphs/edges_200.csv", true};
                 } else if (graphChosen == "6") {
-                    return {"../code/data/medium_graphs/edges_300.csv"};
+                    return {"../code/data/medium_graphs/edges_300.csv", true};
                 } else if (graphChosen == "7") {
-                    return {"../code/data/medium_graphs/edges_400.csv"};
+                    return {"../code/data/medium_graphs/edges_400.csv", true};
                 } else if (graphChosen == "8") {
-                    return {"../code/data/medium_graphs/edges_500.csv"};
+                    return {"../code/data/medium_graphs/edges_500.csv", true};
                 } else if (graphChosen == "9") {
-                    return {"../code/data/medium_graphs/edges_600.csv"};
+                    return {"../code/data/medium_graphs/edges_600.csv", true};
                 } else if (graphChosen == "10") {
-                    return {"../code/data/medium_graphs/edges_700.csv"};
+                    return {"../code/data/medium_graphs/edges_700.csv", true};
                 } else if (graphChosen == "11") {
-                    return {"../code/data/medium_graphs/edges_800.csv"};
+                    return {"../code/data/medium_graphs/edges_800.csv", true};
                 } else if (graphChosen == "12") {
-                    return {"../code/data/medium_graphs/edges_900.csv"};
+                    return {"../code/data/medium_graphs/edges_900.csv", true};
                 }
                 std::cout << std::endl;
             }
@@ -134,7 +130,8 @@ void Menu::run() {
             if(this->isShippingGraph) printer.printCostAndPathTAH(isShippingGraph);
             else printer.printCostAndPathTAH(isShippingGraph);
         }else if (option == "4") {
-            printer.printCostAndPathHeuristic();
+            if (printer.isConnected()) printer.printCostAndPathHeuristic();
+            else std::cout << "Our algorithm doesn't work with graphs not fully connected.\n";
         }else if (option == "5") {
             this->isShippingGraph = false;
             printer = readSelectedFile();
