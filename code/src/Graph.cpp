@@ -3,6 +3,11 @@
 #include <algorithm>
 #include <valarray>
 
+Vertex* Graph::findVertex(const int &id) {
+    if(id < vertexSet.size()) return vertexSet[id];
+    else return nullptr;
+}
+
 Vertex* Graph::addVertex(const int &id) {
     if (id >= vertexSet.size()) vertexSet.resize(id + 1, nullptr);
 
@@ -19,13 +24,11 @@ bool Graph::addBidirectionalEdge(Vertex* v1, Vertex* v2, double w) {
 }
 
 double Graph::dist(Vertex *source, Vertex *dest) {
-    try {
-        Edge* edge = source->getAdj()[dest->getId()];
-        if (edge == nullptr) return -1.0;
-        return edge->getDistance();
-    } catch (const std::out_of_range&) {
-        return -1.0;
-    }
+    if(dest->getId() >= source->getAdj().size()) return -1.0;
+    Edge* edge = source->getAdj()[dest->getId()];
+    if (edge == nullptr) return -1.0;
+    double dist = edge->getDistance();
+    return dist;
 }
 
 double Graph::Haversine(Vertex* v1, Vertex* v2) {

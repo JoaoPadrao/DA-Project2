@@ -6,7 +6,12 @@
 class Graph {
 public:
 
-
+    /**
+     *
+     * @param id
+     * @return
+     */
+    Vertex* findVertex(const int &id);
 
      /**
      * Adds a vertex with a given id to a graph. \n
