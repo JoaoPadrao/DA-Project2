@@ -3,7 +3,7 @@
 
 Printer::Printer() = default;
 
-Printer::Printer(const std::string& edgesPath) {
+Printer::Printer(const std::string& edgesPath, bool connected) {
     std::ifstream edgesIn(edgesPath);
     Reader::readEdges(edgesIn, graph);
     if(edgesPath.find("real_graphs") != std::string::npos) {
@@ -15,6 +15,7 @@ Printer::Printer(const std::string& edgesPath) {
             Reader::readNodes(nodesIn, graph);
         }
     }
+    this->connected = connected;
 }
 
 void Printer::printContent() {
@@ -26,7 +27,7 @@ void Printer::printContent() {
                       " || LATITUDE: " << v->getCoords()->latitude <<
                       " || LONGITUDE: " << v->getCoords()->longitude <<
                       std::endl;
-        for(auto e: v->getAdj()) {
+        for(auto e: v->adj) {
             if (e == nullptr) {
                 std::cout << "SOURCE: null || DEST: null" << std::endl;
                 continue;
@@ -118,4 +119,8 @@ void Printer::printCostAndPathHeuristic() {
 
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
     std::cout << "Execution time: " << duration << " milliseconds" << std::endl;
+}
+
+bool Printer::isConnected() const {
+    return connected;
 }

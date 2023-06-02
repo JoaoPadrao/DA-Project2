@@ -24,8 +24,9 @@ bool Graph::addBidirectionalEdge(Vertex* v1, Vertex* v2, double w) {
 }
 
 double Graph::dist(Vertex *source, Vertex *dest) {
-    if(dest->getId() >= source->getAdj().size()) return -1.0;
-    Edge* edge = source->getAdj()[dest->getId()];
+    //auto adj = source->getAdj();
+    if(dest->getId() >= source->adj.size()) return -1.0;
+    Edge* edge = source->adj[dest->getId()];
     if (edge == nullptr) return -1.0;
     double dist = edge->getDistance();
     return dist;
@@ -92,7 +93,7 @@ std::vector<Vertex *> Graph::mstPrim() {
         auto u = q.extractMin();
         res.push_back(u);
         u->setVisited(true);
-        for (auto w: u->getAdj()) {
+        for (auto w: u->adj) {
             if (w == nullptr) continue;
             auto v = w->getDest();
             if (!v->isVisited() && w->getDistance() < v->getDist()) {
@@ -194,7 +195,7 @@ double Graph::nearestNeighbour(std::vector<Vertex*> &path) {
         double minDistance = LONG_MAX;
         Vertex* nextVertex = nullptr;
 
-        for (Edge* edge : currentVertex->getAdj()) {
+        for (Edge* edge : currentVertex->adj) {
             if (edge == nullptr) continue;
             Vertex* neighbor = edge->getDest();
             if (!neighbor->isVisited() && edge->getDistance() < minDistance) {

@@ -19,7 +19,6 @@ public:
     ~Vertex();
 
     int getId() const;
-    std::vector<Edge *> getAdj() const;
     bool isVisited() const;
     double getDist() const;
     Edge *getPath() const;
@@ -39,11 +38,12 @@ public:
     Edge * addEdge(Vertex *dest, double w);
     bool operator<(Vertex & vertex) const;
 
+    std::vector<Edge *> adj;        // outgoing edges
+
 protected:
     friend class MutablePriorityQueue<Vertex>;
 
     int id;                         // identifier
-    std::vector<Edge *> adj;        // outgoing edges
     std::vector<int> dest_vertex;   // incoming edges
 
     // auxiliary fields

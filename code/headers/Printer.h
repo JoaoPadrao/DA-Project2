@@ -9,14 +9,17 @@
 class Printer {
 public:
     Printer();
-    Printer(const std::string& edgesPath);
+    Printer(const std::string& edgesPath, bool connected);
 
     void printContent();
     void printCostAndPath();
     void printCostAndPathTAH(bool isShippingGraph);
     void printCostAndPathHeuristic();
+    bool isConnected() const;
+
 private:
     Graph graph;
+    bool connected;
 };
 
 #endif //FEUP_DA_PROJ2_PRINTER_H

@@ -28,9 +28,6 @@ int Vertex::getId() const {
     return this->id;
 }
 
-std::vector<Edge*> Vertex::getAdj() const {
-    return this->adj;
-}
 
 bool Vertex::isVisited() const {
     return this->visited;
